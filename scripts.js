@@ -131,6 +131,7 @@ lectureInfoForm.addEventListener("submit", async (event) => {
     test: formData.get("test")?.toString(),
     report: formData.get("report")?.toString(),
     attendance: formData.get("attendance")?.toString(),
+    author: formData.get("author")?.toString().trim(),
     comment: formData.get("comment")?.toString().trim(),
     created_at: new Date().toISOString(),
   };
