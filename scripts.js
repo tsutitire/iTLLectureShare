@@ -207,6 +207,7 @@ function renderResults(container, rows, isPast = true) {
       card.innerHTML = `
         <p><strong>講義名:</strong> ${item.course_name}</p>
         <p><strong>過去問情報:</strong> ${item.past_info}</p>
+        <p><strong>コメント:</strong><br>${item.past_info}</p>
         <p><strong>投稿者:</strong> ${item.author || "匿名"}</p>
         <p><small>${new Date(item.created_at).toLocaleString()}</small></p>
       `;
