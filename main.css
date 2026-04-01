@@ -278,6 +278,10 @@ p {
   padding: 0.85rem;
 }
 
+.result-card p {
+  white-space: pre-wrap;
+}
+
 .result-card strong {
   color: #dbe5ff;
 }
