@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>iTL授業情報共有部-Main</title>
+  <meta name="description" content="メインページ" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <div class="header-band"></div>
+  <div class="footer-band"></div>
+
+  <div class="page-wrapper">
+    <header class="site-header card">
+      <h1>iTL 授業情報共有</h1>
+      <div class="button-grid">
+        <button class="btn oauth-btn hidden" id="supabase-login" disabled>登録/ログイン（無効）</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>投稿</h2>
+        <div class="button-grid">
+          <button class="btn" id="post-past-question">過去問情報投稿</button>
+          <button class="btn" id="post-lecture-info">講義情報投稿</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>閲覧</h2>
+        <div class="button-grid">
+          <button class="btn" id="view-past-question">過去問情報閲覧</button>
+          <button class="btn" id="view-lecture-info">講義情報閲覧</button>
+        </div>
+
+        <div id="past-question-view" class="view-section hidden">
+          <h3>過去問フィルター</h3>
+          <label>講義名で絞り込み<br>
+            <input type="text" id="filter-past-courseName" placeholder="例: 数学I" />
+          </label>
+          <button class="btn" id="filter-past-query">検索</button>
+          <button class="btn btn-secondary" id="clear-past-filter">クリア</button>
+          <div class="pagination" id="past-pagination"></div>
+          <div id="past-results" class="results"></div>
+        </div>
+
+        <div id="lecture-info-view" class="view-section hidden">
+          <h3>講義情報フィルター</h3>
+          <label>講義名<br>
+            <input type="text" id="filter-lecture-courseName" placeholder="例: 情報系基礎" />
+          </label>
+          <label>難易度<br>
+            <select id="filter-lecture-difficulty">
+              <option value="">全て</option>
+              <option value="諦">諦</option>
+              <option value="鬼">鬼</option>
+              <option value="難">難</option>
+              <option value="普">普</option>
+            </select>
+          </label>
+          <label>テスト<br>
+            <select id="filter-lecture-test">
+              <option value="">全て</option>
+              <option value="あり">あり</option>
+              <option value="なし">なし</option>
+            </select>
+          </label>
+          <label>レポート<br>
+            <select id="filter-lecture-report">
+              <option value="">全て</option>
+              <option value="あり">あり</option>
+              <option value="なし">なし</option>
+            </select>
+          </label>
+          <label>出席評価<br>
+            <select id="filter-lecture-attendance">
+              <option value="">全て</option>
+              <option value="あり">あり</option>
+              <option value="なし">なし</option>
+            </select>
+          </label>
+          <button class="btn" id="filter-lecture-query">検索</button>
+          <button class="btn btn-secondary" id="clear-lecture-filter">クリア</button>
+          <div class="pagination" id="lecture-pagination"></div>
+          <div id="lecture-results" class="results"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+
+    <div id="past-question-modal" class="modal hidden">
+      <h3>過去問情報投稿</h3>
+      <form id="past-question-form">
+        <label>講義名（必須）<br>
+          <input type="text" name="courseName" required>
+        </label>
+        <label>過去問の情報（必須）<br>
+          <textarea name="pastInfo" required placeholder="過去問の写真リンクや問題そのものは貼らないでください（著作権的に良くないので）。どんな傾向の問題が出るか、どのように勉強すべきかを書いてください。"></textarea>
+        </label>
+        <label>投稿者名（任意）<br>
+          <input type="text" name="author">
+        </label>
+        <div class="modal-buttons">
+          <button type="submit" class="btn">登録</button>
+          <button type="button" class="btn btn-secondary" data-close="past-question-modal">キャンセル</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="lecture-info-modal" class="modal hidden">
+      <h3>講義情報投稿</h3>
+      <form id="lecture-info-form">
+        <label>講義名（必須）<br>
+          <input type="text" name="courseName" required>
+        </label>
+        <label>講義難易度（単位取得）（必須）<br>
+          <select name="difficulty" required>
+            <option value="">選択してください</option>
+            <option value="諦">諦</option>
+            <option value="鬼">鬼</option>
+            <option value="難">難</option>
+            <option value="普">普</option>
+          </select>
+        </label>
+        <label>テスト（必須）<br>
+          <select name="test" required>
+            <option value="">選択してください</option>
+            <option value="あり">あり</option>
+            <option value="なし">なし</option>
+          </select>
+        </label>
+        <label>レポート（必須）<br>
+          <select name="report" required>
+            <option value="">選択してください</option>
+            <option value="あり">あり</option>
+            <option value="なし">なし</option>
+          </select>
+        </label>
+        <label>出席評価（必須）<br>
+          <select name="attendance" required>
+            <option value="">選択してください</option>
+            <option value="あり">あり</option>
+            <option value="なし">なし</option>
+          </select>
+        </label>
+        <label>コメント（必須）<br>
+          <textarea name="comment" required></textarea>
+        </label>
+        <div class="modal-buttons">
+          <button type="submit" class="btn">登録</button>
+          <button type="button" class="btn btn-secondary" data-close="lecture-info-modal">キャンセル</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="site-footer card">
+      <p>&copy; 2026 tsutitire</p>
+    </footer>
+  </div>
+
+  <!-- supabaseをESMでimportする方法（file://だとブロックされるため、必ずHTTPサーバーで提供してください） -->
+  <script type="module" src="scripts.js"></script>
+</body>
+</html>

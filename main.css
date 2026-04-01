@@ -1,0 +1,292 @@
+/* --- ベースリセット --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --text: #c9d1d9;
+  --primary: #58a6ff;
+  --accent: #79c0ff;
+  --band-top: #0f172a;
+  --band-bottom: #111827;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* --- 全体レイアウト --- */
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, #1f2937 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* --- 上下帯 --- */
+.header-band,
+.footer-band {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 100;
+}
+
+.header-band {
+  top: 0;
+  background: linear-gradient(90deg, var(--band-top), rgba(14, 23, 42, 0.85));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-band {
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(17, 25, 39, 0.95), var(--band-bottom));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --- コンテンツ余白 --- */
+.page-wrapper {
+  padding: 100px 28px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+main {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.site-header {
+  padding: 1.5rem;
+}
+
+.site-footer {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.oauth-btn {
+  width: 100%;
+  font-size: 1.02rem;
+  padding: 0.8rem 1.2rem;
+  letter-spacing: 0.02em;
+}
+
+section.card {
+  margin-top: 0.4rem;
+  padding: 1.6rem;
+}
+
+/* --- カード / セクション --- */
+section.card {
+  background: var(--card);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+  padding: 1.4rem;
+}
+
+/* --- 見出し / テキスト --- */
+h1,
+h2,
+h3 {
+  color: #f0f6fc;
+  margin-bottom: 0.65rem;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+/* --- ボタンスタイル --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border: none;
+  color: #f8f9fb;
+  border-radius: 999px;
+  padding: 0.7rem 1.3rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(54, 150, 255, 0.25);
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(54, 150, 255, 0.35);
+}
+
+/* --- レスポンシブ --- */
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 70px 14px 75px;
+  }
+
+  .header-band,
+  .footer-band {
+    height: 52px;
+  }
+
+  h1 {
+    font-size: clamp(1.3rem, 7vw, 1.9rem);
+  }
+
+  .button-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  section.card {
+    padding: 1.25rem;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 9, 21, 0.72);
+  z-index: 200;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 540px);
+  transform: translate(-50%, -50%);
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1.2rem;
+  z-index: 300;
+  box-shadow: var(--shadow);
+  max-height: 88vh;
+  overflow: auto;
+}
+
+.modal h3 {
+  margin-bottom: 0.75rem;
+}
+
+.modal form label {
+  display: block;
+  margin-bottom: 0.85rem;
+  font-size: 0.96rem;
+}
+
+.modal input,
+.modal textarea,
+.modal select {
+  width: 100%;
+  margin-top: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #0d1117;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+}
+
+.modal textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.view-section {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+}
+
+.view-section h3 {
+  margin-bottom: 0.7rem;
+}
+
+.view-section label {
+  display: block;
+  margin-bottom: 0.7rem;
+}
+
+.results {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.page-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(30, 40, 60, 0.75);
+  color: #f3f7ff;
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+.page-btn.active,
+.page-btn:hover {
+  border-color: var(--accent);
+  background: rgba(64, 124, 220, 0.95);
+}
+
+.page-info {
+  color: #bac8ff;
+  font-size: 0.84rem;
+}
+
+.result-card {
+  background: rgba(10, 20, 35, 0.95);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.85rem;
+}
+
+.result-card strong {
+  color: #dbe5ff;
+}
+
+.btn-secondary {
+  background: rgba(120, 135, 165, 0.28);
+  color: #e2e8f0;
+}
+
+.hidden {
+  display: none !important;
+}
