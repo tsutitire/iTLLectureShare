@@ -218,6 +218,7 @@ function renderResults(container, rows, isPast = true) {
         <p><strong>レポート:</strong> ${item.report}</p>
         <p><strong>出席:</strong> ${item.attendance}</p>
         <p><strong>コメント:</strong> ${item.comment}</p>
+        <p><strong>投稿者:</strong> ${item.author || "匿名"}</p>
         <p><small>${new Date(item.created_at).toLocaleString()}</small></p>
       `;
     }
